@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>8 meses contigo ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+}
+
+.container {
+  padding: 20px;
+}
+
+.card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  animation: fadeIn 1.2s ease;
+}
+
+button {
+  padding: 12px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 20px;
+  background: white;
+  color: #ff4d6d;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.1);
+}
+
+img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 15px;
+  margin: 5px;
+}
+
+.seccion {
+  display: none;
+}
+
+.activa {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.heart {
+  position: fixed;
+  top: -10px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Música -->
+<audio id="musica" loop>
+  <source src="cancion.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <div class="card">
+    <h1>Feliz 8 meses ❤️</h1>
+    <p>Contigo todo se siente mas bonito, me gusta todo de ti y cada que te veo, me gustas cada día más..</p>
+    <button onclick="toggleMusica()">🎵 Play / Pausa</button>
+  </div>
+
+  <div class="card">
+    <h2>⏳ Tiempo juntos</h2>
+    <p id="contador"></p>
+  </div>
+
+  <!-- BOTONES DE RECUERDOS -->
+  <div class="card">
+    <h2>📸 Nuestros recuerdos</h2>
+    <button onclick="mostrar('recuerdo1')">Momento Random</button>
+    <button onclick="mostrar('recuerdo2')">Viaje</button>
+    <button onclick="mostrar('recuerdo3')">Momentos random</button>
+  </div>
+
+  <!-- SECCIONES -->
+  <div id="recuerdo1" class="card seccion">
+    <h3>Un recuerdo muy bonito</h3>
+    <p>Ese es uno de mis días favoritos, un día que hicimos demasiadas cosas e incluso te quedaste en mi casa, el cual siempre que estoy contigo es bonito, el dormir a tu lado es muy especial</p>
+    <img src="foto1.jpg">
+  </div>
+
+  <div id="recuerdo2" class="card seccion">
+    <h3>De nuestras mejores fotos</h3>
+    <p>Ese dia tomamos fotos tan bonitas, algo tasn increible, algo que recordamos con mucho cariño y guardamos todo nuestro amor en una impresion de ese día.</p>
+    <img src="foto2.jpg">
+  </div>
+
+  <div id="recuerdo3" class="card seccion">
+    <h3>Posando las cosas que me das</h3>
+    <p>Risas y fotos increibles, aca donde confieso que esta foto me encanta mucho, demuestra todo el cariño que te tengo y lo mucho que me gusta las cosa que me das. te amo mucho mi amol</p>
+    <img src="foto3.jpg">
+  </div>
+
+</div>
+
+<script>
+// FECHA INICIO
+const inicio = new Date("2025-08-17 00:00:00");
+
+function actualizarContador() {
+  const ahora = new Date();
+  const diff = ahora - inicio;
+
+  const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutos = Math.floor((diff / (1000 * 60)) % 60);
+  const segundos = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("contador").innerText =
+    dias + " días " + horas + "h " + minutos + "m " + segundos + "s";
+}
+
+setInterval(actualizarContador, 1000);
+
+// MOSTRAR SECCIONES
+function mostrar(id) {
+  document.querySelectorAll('.seccion').forEach(sec => {
+    sec.classList.remove('activa');
+  });
+  document.getElementById(id).classList.add('activa');
+}
+
+// MÚSICA
+function toggleMusica() {
+  const audio = document.getElementById('musica');
+  if (audio.paused) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
+}
+
+// Corazones
+function crearCorazon() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerText = "❤️";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+  document.body.appendChild(heart);
+
+  setTimeout(() => heart.remove(), 5000);
+}
+
+setInterval(crearCorazon, 300);
+// MODAL IMAGEN
+const modal = document.createElement('div');
+modal.style.position = 'fixed';
+modal.style.top = 0;
+modal.style.left = 0;
+modal.style.width = '100%';
+modal.style.height = '100%';
+modal.style.background = 'rgba(0,0,0,0.9)';
+modal.style.display = 'none';
+modal.style.justifyContent = 'center';
+modal.style.alignItems = 'center';
+modal.style.zIndex = 9999;
+
+document.body.appendChild(modal);
+
+const modalImg = document.createElement('img');
+modalImg.style.maxWidth = '90%';
+modalImg.style.maxHeight = '90%';
+modalImg.style.borderRadius = '15px';
+modal.appendChild(modalImg);
+
+modal.addEventListener('click', () => {
+  modal.style.display = 'none';
+});
+
+// ACTIVAR EN TODAS LAS IMAGENES
+document.querySelectorAll('img').forEach(img => {
+  img.addEventListener('click', () => {
+    modal.style.display = 'flex';
+    modalImg.src = img.src;
+  });
+});
+
+</script>
+
+
+
+<!-- CARTA -->
+<div class="card" onclick="abrirCarta()" id="carta">
+  <h2>💌 Toca para abrir la carta</h2>
+  <div id="contenidoCarta" style="display:none; margin-top:15px; animation: fadeIn 1s;">
+    <p>
+      No sé en qué momento te volviste tan importante para mí… pero aquí estás,
+      siendo lo mejor que me ha pasado en mucho tiempo ❤️
+    </p>
+  </div>
+</div>
+
+<script>
+function abrirCarta() {
+  const contenido = document.getElementById("contenidoCarta");
+  contenido.style.display = "block";
+}
+</script>
+
+</body>
+</html>
